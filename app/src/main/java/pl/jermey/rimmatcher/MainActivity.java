@@ -103,8 +103,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (matcherVisible)
-            mUnityPlayer.windowFocusChanged(hasFocus);
+        mUnityPlayer.windowFocusChanged(hasFocus);
     }
 
     @Override
