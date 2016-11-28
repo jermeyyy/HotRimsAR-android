@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity {
             page.setRotationY(position * -20f);
             page.setElevation(scale * 16f);
         });
+        counter.setText(String.valueOf(pagerContainer.getViewPager().getCurrentItem() + 1) + " of " + viewPagerAdapter.getCount());
         pagerContainer.getViewPager().addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -34,7 +35,7 @@ public class DetailsActivity extends BaseActivity {
     @ViewById
     TextView review;
     @ViewById
-    TextView match;
+    RelativeLayout match;
 
     @Extra
     RimInfo rimInfo;

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_white_1000"
     android:orientation="vertical">
 
     <LinearLayout
@@ -109,20 +108,26 @@
 
     </ScrollView>
 
-    <TextView
+    <RelativeLayout
         android:id="@+id/match"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/accent"
         android:foreground="?attr/selectableItemBackground"
-        android:gravity="center"
-        android:paddingBottom="@dimen/half_padding"
-        android:paddingTop="@dimen/half_padding"
-        android:text="@string/match"
-        android:textAllCaps="true"
-        android:textColor="@color/md_white_1000"
-        android:textSize="18sp"
-        android:transitionName="match" />
+        android:transitionName="match">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingBottom="@dimen/half_padding"
+            android:paddingTop="@dimen/half_padding"
+            android:text="@string/match"
+            android:textAllCaps="true"
+            android:textColor="@color/md_white_1000"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

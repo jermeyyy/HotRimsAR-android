@@ -3,6 +3,7 @@ package pl.jermey.rimmatcher.fragment;
 import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,6 +28,8 @@ import pl.jermey.rimmatcher.model.RimInfo;
 public class PagerItemFragment extends RxFragment {
 
     @ViewById
+    LinearLayout container;
+    @ViewById
     TextView name;
     @ViewById
     ImageView image;
@@ -35,7 +38,7 @@ public class PagerItemFragment extends RxFragment {
     @ViewById
     TextView review;
     @ViewById
-    TextView match;
+    RelativeLayout match;
     @ViewById
     LinearLayout descriptionContainer;
 
