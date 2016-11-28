@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_white_1000"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/nameContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:tint="@color/accent"
+            android:padding="@dimen/default_padding"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/ic_arrow_back_white_24dp"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/half_padding"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"
+        android:transitionName="name"
+        tools:text="Sparco ASSETTO GARA" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/match"
+        android:layout_below="@+id/nameContainer"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:transitionName="image" />
+
+            <LinearLayout
+                android:id="@+id/descriptionContainer"
+                android:transitionName="descriptionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/half_padding"
+                    android:layout_marginTop="@dimen/half_padding"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/half_padding"
+                        android:text="@string/color"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+
+                        android:layout_marginRight="@dimen/default_padding"
+                        tools:text="Matte Graphite Silver" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/half_padding"
+                    android:text="@string/review"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/review"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:padding="@dimen/half_padding"
+                    android:textSize="13sp"
+                    tools:text="Bought on sale for $109 per wheel, which included lug nuts and Sparco center caps. I dropped almost 5 pounds per wheel over the stock wheels on my 2004 BMW 330xi and, let me tell you, there is a noticeable bump in acceleration at higher speeds, and it handles like a different car--significantly tighter in the corners and the tires don't wail nearly as much (left my new Michelin Premier 205/50s on). I've done a lot of performance mods on my car, and I have to say this was the most noticeable one of all. AND, they look bad-ass (matte graphite silver on a black car)!" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/match"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/accent"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingBottom="@dimen/half_padding"
+        android:paddingTop="@dimen/half_padding"
+        android:text="@string/match"
+        android:textAllCaps="true"
+        android:textColor="@color/md_white_1000"
+        android:textSize="18sp"
+        android:transitionName="match" />
+
+</RelativeLayout>

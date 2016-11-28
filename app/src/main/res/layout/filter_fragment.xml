@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/half_padding"
+            android:text="@string/filter"
+            android:textColor="@color/md_black_1000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/half_padding"
+            android:text="Rim size"
+            android:textColor="@color/md_black_1000" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/half_padding" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/half_padding"
+            android:text="Price"
+            android:textColor="@color/md_black_1000" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/half_padding" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Some option 1" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Some option 1" />
+
+        <TextView
+            android:id="@+id/filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding"
+            android:background="@color/accent"
+            android:gravity="center"
+            android:paddingBottom="@dimen/half_padding"
+            android:paddingTop="@dimen/half_padding"
+            android:text="@string/filter"
+            android:textAllCaps="true"
+            android:textColor="@color/md_white_1000"
+            android:foreground="?attr/selectableItemBackground"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
