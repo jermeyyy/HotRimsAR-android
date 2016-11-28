@@ -8,18 +8,19 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/container"
-        android:transitionName="root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/md_white_1000"
         android:foreground="?attr/selectableItemBackground"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:transitionName="root">
 
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/half_padding"
+            android:textColor="@color/md_black_1000"
             android:textSize="18sp"
             android:transitionName="name"
             tools:text="Sparco ASSETTO GARA" />
@@ -51,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/half_padding"
                     android:text="@string/color"
+                    android:textColor="@color/md_black_1000"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -59,17 +61,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-
                     android:layout_marginRight="@dimen/default_padding"
+                    android:textColor="@color/md_black_1000"
                     tools:text="Matte Graphite Silver" />
 
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/half_padding"
                 android:text="@string/review"
+                android:textColor="@color/md_black_1000"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -80,6 +84,7 @@
                 android:ellipsize="end"
                 android:maxLines="5"
                 android:padding="@dimen/half_padding"
+                android:textColor="@color/md_black_1000"
                 android:textSize="13sp"
                 tools:text="Bought on sale for $109 per wheel, which included lug nuts and Sparco center caps. I dropped almost 5 pounds per wheel over the stock wheels on my 2004 BMW 330xi and, let me tell you, there is a noticeable bump in acceleration at higher speeds, and it handles like a different car--significantly tighter in the corners and the tires don't wail nearly as much (left my new Michelin Premier 205/50s on). I've done a lot of performance mods on my car, and I have to say this was the most noticeable one of all. AND, they look bad-ass (matte graphite silver on a black car)!" />
 

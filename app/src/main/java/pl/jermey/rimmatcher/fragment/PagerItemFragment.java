@@ -1,6 +1,8 @@
 package pl.jermey.rimmatcher.fragment;
 
-import android.content.Intent;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -15,10 +17,10 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
-import pl.iterators.mobile.transitionhelper.TransitionHelper;
-import pl.jermey.rimmatcher.DetailsActivity_;
+import pl.jermey.rimmatcher.DetailsFragment;
+import pl.jermey.rimmatcher.DetailsFragment_;
+import pl.jermey.rimmatcher.MainActivity;
 import pl.jermey.rimmatcher.R;
-import pl.jermey.rimmatcher.UnityPlayerActivity;
 import pl.jermey.rimmatcher.model.RimInfo;
 
 /**
@@ -55,11 +57,24 @@ public class PagerItemFragment extends RxFragment {
 
     @Click(R.id.match)
     void match() {
-        startActivity(new Intent(getContext(), UnityPlayerActivity.class));
+        ((MainActivity) getActivity()).showMatcher();
     }
 
     @Click(R.id.container)
     void details() {
-        TransitionHelper.transitionTo(this, DetailsActivity_.intent(this).rimInfo(rimInfo).get(), R.transition.rim_details, image, match, name, descriptionContainer);
+        DetailsFragment fragment = DetailsFragment_.builder().rimInfo(rimInfo).build();
+        Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.rim_details);
+        fragment.setSharedElementEnterTransition(transition);
+        fragment.setEnterTransition(new Fade());
+        setExitTransition(new Fade());
+        fragment.setSharedElementReturnTransition(transition);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .addSharedElement(image, image.getTransitionName())
+                .addSharedElement(match,match.getTransitionName())
+                .addSharedElement(name, name.getTransitionName())
+                .addSharedElement(descriptionContainer,descriptionContainer.getTransitionName())
+                .add(R.id.fragmentContainer, fragment, "detailsFragment")
+                .addToBackStack("detailsFragment")
+                .commit();
     }
 }

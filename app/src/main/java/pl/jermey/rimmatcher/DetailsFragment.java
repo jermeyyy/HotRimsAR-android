@@ -1,8 +1,5 @@
 package pl.jermey.rimmatcher;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -10,21 +7,21 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.target.ImageViewTarget;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
-import pl.jermey.rimmatcher.base.BaseActivity;
 import pl.jermey.rimmatcher.model.RimInfo;
 
 /**
  * Created by Jermey on 27.11.2016.
  */
-@EActivity(R.layout.details_activity)
-public class DetailsActivity extends BaseActivity {
+@EFragment(R.layout.details_fragment)
+public class DetailsFragment extends RxFragment {
 
     @ViewById
     TextView name;
@@ -37,14 +34,8 @@ public class DetailsActivity extends BaseActivity {
     @ViewById
     RelativeLayout match;
 
-    @Extra
+    @FragmentArg
     RimInfo rimInfo;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        postponeEnterTransition();
-    }
 
     @AfterViews
     void afterViews() {
@@ -55,18 +46,17 @@ public class DetailsActivity extends BaseActivity {
             @Override
             protected void setResource(GlideDrawable resource) {
                 image.setImageDrawable(resource);
-                startPostponedEnterTransition();
             }
         });
     }
 
     @Click(R.id.match)
     void match() {
-        startActivity(new Intent(this, UnityPlayerActivity.class));
+        ((MainActivity) getActivity()).showMatcher();
     }
 
     @Click(R.id.close)
     void close() {
-        onBackPressed();
+        getActivity().onBackPressed();
     }
 }
