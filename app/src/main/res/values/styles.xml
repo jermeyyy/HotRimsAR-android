@@ -13,4 +13,14 @@
         <item name="android:windowBackground">@color/md_white_1000</item>
     </style>
 
+    <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="titleTextColor">@color/md_white_1000</item>
+        <item name="android:displayOptions">homeAsUp|showHome</item>
+        <item name="android:navigationIcon">@drawable/ic_arrow_back_24dp</item>
+    </style>
+
+    <style name="TextAppearanceCollapsingToolbarExpanded" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>

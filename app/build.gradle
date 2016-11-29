@@ -88,4 +88,6 @@ dependencies {
     compile "uk.co.chrisjenx:calligraphy:2.2.0"
     compile 'com.eftimoff:android-viewpager-transformers:1.0.1@aar'
     compile 'com.github.iteratorsmobile:TransitionHelper:1.0.3'
+    compile 'com.romandanylyk:pageindicatorview:0.0.7'
+
 }
