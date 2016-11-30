@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.target.ImageViewTarget;
 
 import java.util.List;
 
@@ -20,17 +22,25 @@ import pl.jermey.rimmatcher.R;
 public class GalleryPagerAdapter extends PagerAdapter {
 
     private final Context context;
+    private final GalleryPagerInterface galleryPagerInterface;
     private List<String> images;
 
-    public GalleryPagerAdapter(Context context, List<String> images) {
+    public GalleryPagerAdapter(Context context, List<String> images, GalleryPagerInterface galleryPagerInterface) {
         this.images = images;
         this.context = context;
+        this.galleryPagerInterface = galleryPagerInterface;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView view = (ImageView) LayoutInflater.from(context).inflate(R.layout.gallery_item, container, false);
-        Glide.with(context).load(images.get(position)).into(view);
+        Glide.with(context).load(images.get(position)).into(new ImageViewTarget<GlideDrawable>(view) {
+            @Override
+            protected void setResource(GlideDrawable resource) {
+                view.setImageDrawable(resource);
+                galleryPagerInterface.photoLoaded();
+            }
+        });
         container.addView(view);
         return view;
     }
@@ -48,5 +58,9 @@ public class GalleryPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+
+    public interface GalleryPagerInterface {
+        void photoLoaded();
     }
 }

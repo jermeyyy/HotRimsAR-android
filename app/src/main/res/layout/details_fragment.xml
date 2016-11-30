@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:attrs="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:attrs="http://schemas.android.com/apk/res-auto"
     android:background="@color/md_white_1000">
-
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -28,7 +26,7 @@
                 android:id="@+id/galleryPager"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
-                app:layout_collapseMode="parallax"/>
+                app:layout_collapseMode="parallax" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -40,12 +38,12 @@
                 android:id="@+id/pagerIndicatorView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:piv_animationType="slide"
-                app:piv_animationDuration="200"
-                app:piv_radius="3dp"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="12dp"
-                attrs:piv_viewPager="@id/galleryPager"/>
+                app:piv_animationDuration="200"
+                app:piv_animationType="slide"
+                app:piv_radius="3dp"
+                attrs:piv_viewPager="@id/galleryPager" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -65,7 +63,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
 
         <LinearLayout
             android:id="@+id/descriptionContainer"
@@ -101,6 +98,59 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/half_padding"
+                android:layout_marginTop="@dimen/half_padding"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/half_padding"
+                    android:text="@string/price"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/default_padding"
+                    android:textColor="@color/md_black_1000"
+                    tools:text="Matte Graphite Silver" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/half_padding"
+                android:layout_marginTop="@dimen/half_padding"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/half_padding"
+                    android:text="@string/rating"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/rating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/default_padding" />
+
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,7 +167,6 @@
                 android:ellipsize="end"
                 android:padding="@dimen/half_padding"
                 android:textColor="@color/md_black_1000"
-                android:textSize="13sp"
                 tools:text="Bought on sale for $109 per wheel, which included lug nuts and Sparco center caps. I dropped almost 5 pounds per wheel over the stock wheels on my 2004 BMW 330xi and, let me tell you, there is a noticeable bump in acceleration at higher speeds, and it handles like a different car--significantly tighter in the corners and the tires don't wail nearly as much (left my new Michelin Premier 205/50s on). I've done a lot of performance mods on my car, and I have to say this was the most noticeable one of all. AND, they look bad-ass (matte graphite silver on a black car)!" />
 
         </LinearLayout>

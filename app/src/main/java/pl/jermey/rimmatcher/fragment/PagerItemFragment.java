@@ -5,6 +5,7 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,8 +18,6 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
-import pl.jermey.rimmatcher.DetailsFragment;
-import pl.jermey.rimmatcher.DetailsFragment_;
 import pl.jermey.rimmatcher.MainActivity;
 import pl.jermey.rimmatcher.R;
 import pl.jermey.rimmatcher.model.RimInfo;
@@ -38,11 +37,13 @@ public class PagerItemFragment extends RxFragment {
     @ViewById
     TextView color;
     @ViewById
-    TextView review;
+    TextView price;
     @ViewById
     RelativeLayout match;
     @ViewById
     LinearLayout descriptionContainer;
+    @ViewById
+    RatingBar rating;
 
     @FragmentArg
     RimInfo rimInfo;
@@ -51,8 +52,9 @@ public class PagerItemFragment extends RxFragment {
     void afterViews() {
         name.setText(rimInfo.getName());
         color.setText(rimInfo.getColorInfo());
-        review.setText(rimInfo.getReview());
-        Glide.with(this).load(rimInfo.getImage()).into(image);
+        price.setText(rimInfo.getPrice() + "$");
+        Glide.with(this).load(rimInfo.getImages().get(0)).into(image);
+        rating.setRating(Float.parseFloat(rimInfo.getStars()));
     }
 
     @Click(R.id.match)
@@ -68,11 +70,12 @@ public class PagerItemFragment extends RxFragment {
         fragment.setEnterTransition(new Fade());
         setExitTransition(new Fade());
         fragment.setSharedElementReturnTransition(transition);
+//        FragmentTransitionUtil.getInstance(getFragmentManager()).transition(R.id.fragmentContainer, this, fragment, image, image.getTransitionName());
         getActivity().getSupportFragmentManager().beginTransaction()
                 .addSharedElement(image, image.getTransitionName())
-                .addSharedElement(match,match.getTransitionName())
+                .addSharedElement(match, match.getTransitionName())
                 .addSharedElement(name, name.getTransitionName())
-                .addSharedElement(descriptionContainer,descriptionContainer.getTransitionName())
+                .addSharedElement(descriptionContainer, descriptionContainer.getTransitionName())
                 .add(R.id.fragmentContainer, fragment, "detailsFragment")
                 .addToBackStack("detailsFragment")
                 .commit();
