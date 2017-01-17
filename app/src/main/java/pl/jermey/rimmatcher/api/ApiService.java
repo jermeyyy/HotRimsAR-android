@@ -12,7 +12,10 @@ import rx.Observable;
 
 public interface ApiService {
 
-    @FormUrlEncoded
     @POST("API/rims")
-    Observable<RimInfoList> getRims(@Field("maxPrice") int maxPrice);
+    Observable<RimInfoList> getRims();
+
+    @FormUrlEncoded
+    @POST("API/add_to_favourite")
+    Observable<Void> addToFavourites(@Field("ID") String id);
 }

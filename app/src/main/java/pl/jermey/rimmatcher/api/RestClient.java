@@ -1,6 +1,7 @@
 package pl.jermey.rimmatcher.api;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -10,9 +11,14 @@ import org.androidannotations.annotations.RootContext;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import pl.jermey.rimmatcher.model.RimInfo;
+import pl.jermey.rimmatcher.model.RimInfoList;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Jermey on 29.11.2016.
@@ -27,7 +33,7 @@ public class RestClient {
     @RootContext
     Context context;
 
-    public static ApiService apiService;
+    private static ApiService apiService;
 
     @AfterInject
     public void afterInject() {
@@ -48,5 +54,20 @@ public class RestClient {
         apiService = retrofit.create(ApiService.class);
     }
 
+    public static Observable<Void> likeRim(RimInfo rimInfo) {
+        rimInfo.setIsLiked(true);
+        return apiService.addToFavourites(rimInfo.getId())
+                .subscribeOn(Schedulers.io())
+                .doOnCompleted(() -> DataProvider_.query().update(rimInfo)
+                        .subscribe(rimInfo1 -> Log.d(TAG, "likeRim: " + rimInfo.getId())))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<RimInfoList> getAllRims() {
+        Log.e(TAG, "getAllRims");
+        return apiService.getRims()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
 }

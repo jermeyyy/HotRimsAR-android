@@ -9,6 +9,15 @@
         <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.MatcherChooser" parent="AppTheme">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/shade_color</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
     <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="titleTextColor">@color/md_white_1000</item>
         <item name="android:displayOptions">homeAsUp|showHome</item>

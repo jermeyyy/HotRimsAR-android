@@ -15,8 +15,7 @@
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/unityPlayerContainer">
+            android:layout_alignParentStart="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,12 +60,6 @@
 
         </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/unityPlayerContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
@@ -74,7 +67,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
         app:menu="@menu/drawer_menu" />
 
 </android.support.v4.widget.DrawerLayout>

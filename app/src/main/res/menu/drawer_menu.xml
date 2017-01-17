@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/drawer_match_rims"
-        android:title="@string/match"/>
+    <item android:id="@+id/drawe_browse"
+        android:title="@string/browse"/>
+
+    <item android:id="@+id/drawer_saved"
+        android:title="@string/saved"/>
 
     <item android:id="@+id/drawer_settings"
         android:title="@string/settings"/>

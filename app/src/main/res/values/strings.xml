@@ -1,10 +1,14 @@
 <resources>
-    <string name="app_name">RimMatcher</string>
+    <string name="app_name">HotRims AR</string>
     <string name="match">Match</string>
     <string name="color">Color</string>
-    <string name="review">Review</string>
+    <string name="reviews">Reviews</string>
     <string name="filter">Filter</string>
     <string name="settings">Settings</string>
     <string name="price">Price</string>
     <string name="rating">Rating</string>
+    <string name="saved">Saved</string>
+    <string name="browse">Browse rims</string>
+    <string name="add_car">Add car</string>
+    <string name="check_details">Check details</string>
 </resources>

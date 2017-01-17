@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pl.jermey.rimmatcher.fragment.PagerItemFragment_;
 import pl.jermey.rimmatcher.model.RimInfo;
@@ -24,7 +25,7 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         return PagerItemFragment_.builder()
-                .rimInfo(list.get(position))
+                .rimId(list.get(position).getId())
                 .build();
     }
 
@@ -35,6 +36,11 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public void add(RimInfo rimInfo) {
         list.add(rimInfo);
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<RimInfo> rimInfo) {
+        list.addAll(rimInfo);
         notifyDataSetChanged();
     }
 }
