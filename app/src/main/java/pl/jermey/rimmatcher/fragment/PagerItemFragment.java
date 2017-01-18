@@ -41,6 +41,8 @@ public class PagerItemFragment extends RxFragment {
     @ViewById
     TextView color;
     @ViewById
+    TextView price;
+    @ViewById
     TextView shippingInfo;
     @ViewById
     RelativeLayout match;
@@ -70,9 +72,10 @@ public class PagerItemFragment extends RxFragment {
         name.setText(rimInfo.getName());
         color.setText(rimInfo.getColorInfo());
         shippingInfo.setText(rimInfo.getShipInfo());
-        like.setText(rimInfo.getLikes());
+        like.setText(String.valueOf(rimInfo.getLikes()));
+        price.setText(getString(R.string.price_format, rimInfo.getPrice()));
         Glide.with(this).load(rimInfo.getImages().get(0).getUrl()).into(image);
-        rating.setRating(Float.parseFloat(rimInfo.getStars()));
+        rating.setRating(rimInfo.getStars());
         if (rimInfo.isIsLiked() != null && rimInfo.isIsLiked()) {
             like.setEnabled(false);
             like.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(like.getContext(), R.drawable.ic_favorite_white_24dp), null, null, null);
@@ -99,6 +102,6 @@ public class PagerItemFragment extends RxFragment {
     @Click({R.id.container, R.id.details})
     void details() {
         Intent intent = DetailsActivity_.intent(this).rimId(rimInfo.getId()).get();
-        TransitionHelper.transitionTo(this, intent, R.transition.rim_details, image, descriptionContainer, match);
+        TransitionHelper.transitionTo(this, intent, R.transition.rim_details, image, descriptionContainer);
     }
 }

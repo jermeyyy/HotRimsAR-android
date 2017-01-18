@@ -2,7 +2,7 @@ package pl.jermey.rimmatcher.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import pl.jermey.rimmatcher.model.RimInfo;
  * Created by Jermey on 27.11.2016.
  */
 
-public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
+public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<RimInfo> list = new ArrayList<>();
 
@@ -41,6 +41,11 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public void addAll(List<RimInfo> rimInfo) {
         list.addAll(rimInfo);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        list.clear();
         notifyDataSetChanged();
     }
 }

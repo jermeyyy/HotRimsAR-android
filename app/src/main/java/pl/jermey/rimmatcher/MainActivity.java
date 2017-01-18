@@ -1,5 +1,6 @@
 package pl.jermey.rimmatcher;
 
+import android.app.ProgressDialog;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ import pl.jermey.rimmatcher.api.DataProvider_;
 import pl.jermey.rimmatcher.base.BaseActivity;
 import pl.jermey.rimmatcher.fragment.FilterFragment;
 import pl.jermey.rimmatcher.fragment.FilterFragment_;
+import pl.jermey.rimmatcher.model.RimInfo;
+import pl.jermey.rimmatcher.util.FilterInterface;
 import pl.jermey.rimmatcher.view.PagerContainer;
 
 /**
@@ -32,7 +36,7 @@ import pl.jermey.rimmatcher.view.PagerContainer;
  */
 @OptionsMenu(R.menu.main)
 @EActivity(R.layout.main_activity)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements FilterInterface {
 
     @ViewById
     Toolbar toolbar;
@@ -47,8 +51,15 @@ public class MainActivity extends BaseActivity {
 
     @InstanceState
     int currentPage = 0;
+    @InstanceState
+    Integer mMaxPrice = 1000;
+    @InstanceState
+    Integer mMinPrice = 1000;
+    @InstanceState
+    Float mMinStars = 2.5f;
 
     private MainViewPagerAdapter viewPagerAdapter;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,10 +81,7 @@ public class MainActivity extends BaseActivity {
         navigationView.addHeaderView(getHeaderView());
 
         setupViewPager();
-        DataProvider_.getAllRims()
-                .compose(bindToLifecycle())
-                .doOnCompleted(() -> pagerContainer.getViewPager().setCurrentItem(currentPage, true))
-                .subscribe(rims -> viewPagerAdapter.addAll(rims), Throwable::printStackTrace);
+
         startPostponedEnterTransition();
     }
 
@@ -82,9 +90,9 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setupViewPager() {
-        ViewPager viewPager = pagerContainer.getViewPager();
+        viewPager = pagerContainer.getViewPager();
         viewPager.setAdapter(viewPagerAdapter);
-        viewPager.setOffscreenPageLimit(5);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setClipChildren(false);
         viewPager.setClipToPadding(false);
         viewPager.setPageMargin((int) -(getResources().getDisplayMetrics().widthPixels * 0.2f));
@@ -105,11 +113,22 @@ public class MainActivity extends BaseActivity {
             }
         });
         counter.setText(String.valueOf(viewPager.getCurrentItem() + 1) + " of " + viewPagerAdapter.getCount());
+        DataProvider_.getAllRims()
+                .compose(bindToLifecycle())
+                .doOnCompleted(() -> {
+                    counter.setText(String.valueOf(1) + " of " + viewPagerAdapter.getCount());
+                    pagerContainer.getViewPager().setCurrentItem(currentPage, true);
+                })
+                .subscribe(rims -> viewPagerAdapter.addAll(rims), Throwable::printStackTrace);
     }
 
     @OptionsItem(R.id.action_filter)
     void filter() {
-        FilterFragment filterFragment = FilterFragment_.builder().build();
+        FilterFragment filterFragment = FilterFragment_.builder()
+                .mMinPrice(mMinPrice)
+                .mMaxPrice(mMaxPrice)
+                .mMinStars(mMinStars)
+                .build();
         filterFragment.show(getSupportFragmentManager(), "filterFragment");
     }
 
@@ -118,4 +137,39 @@ public class MainActivity extends BaseActivity {
         drawerLayout.openDrawer(GravityCompat.START, true);
     }
 
+    @Override
+    public void filter(Integer minPrice, Integer maxPrice, Float minStars) {
+        mMinPrice = minPrice;
+        mMaxPrice = maxPrice;
+        mMinStars = minStars;
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle(R.string.processing);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+        DataProvider_.query().select(RimInfo.class)
+                .where(RimInfo.STARS.greaterThanOrEqual(minStars).and(RimInfo.PRICE.between(minPrice, maxPrice)))
+                .get()
+                .toObservable()
+                .toList()
+                .compose(bindToLifecycle())
+                .doOnCompleted(() -> {
+                    progressDialog.dismiss();
+                    if (currentPage == 0) {
+                        counter.setText(String.valueOf(1) + " of " + viewPagerAdapter.getCount());
+                        pagerContainer.getViewPager().setCurrentItem(currentPage, true);
+                    }
+                })
+                .subscribe(rims -> {
+                    if (rims.size() > 1) {
+                        currentPage = 0;
+                        viewPagerAdapter.clear();
+                        viewPagerAdapter.addAll(rims);
+                    } else {
+                        new AlertDialog.Builder(this).setTitle(R.string.no_results)
+                                .setMessage(R.string.no_results_message)
+                                .setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss())
+                                .show();
+                    }
+                }, Throwable::printStackTrace);
+    }
 }

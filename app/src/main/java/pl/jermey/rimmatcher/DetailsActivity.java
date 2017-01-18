@@ -67,6 +67,8 @@ public class DetailsActivity extends BaseActivity implements GalleryPagerAdapter
     ImageView close;
     @ViewById
     TextView like;
+    @ViewById
+    TextView likeCount;
 
     @Extra
     String rimId;
@@ -86,11 +88,13 @@ public class DetailsActivity extends BaseActivity implements GalleryPagerAdapter
                 });
             }
         });
-        photoLoaded();
     }
 
     private void fadeViews(float alpha, long duration, long delay, AnimatorListenerAdapter listenerAdapter) {
         close.animate().alpha(alpha).setStartDelay(delay).setDuration(duration).start();
+        like.animate().alpha(alpha).setStartDelay(delay).setDuration(duration).start();
+        likeCount.animate().alpha(alpha).setStartDelay(delay).setDuration(duration).start();
+        match.animate().alpha(alpha).setStartDelay(delay).setDuration(duration).start();
         pagerIndicatorView.animate().alpha(alpha).setStartDelay(delay).setDuration(duration).setListener(listenerAdapter).start();
     }
 
@@ -115,17 +119,16 @@ public class DetailsActivity extends BaseActivity implements GalleryPagerAdapter
                 .into(authorAvatar);
         if (rimInfo.isIsLiked() != null && rimInfo.isIsLiked()) {
             like.setEnabled(false);
-            like.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(like.getContext(), R.drawable.ic_favorite_white_24dp), null, null, null);
+            like.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(like.getContext(), R.drawable.ic_favorite_white_24dp), null);
         } else {
             like.setEnabled(true);
-            like.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(like.getContext(), R.drawable.ic_favorite_border_white_24dp), null, null, null);
+            like.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(like.getContext(), R.drawable.ic_favorite_border_white_24dp), null);
         }
         shippingInfo.setText(rimInfo.getShipInfo());
         review.setText(rimInfo.getReview());
-        price.setText(rimInfo.getPrice() + "$");
-        rating.setRating(Float.parseFloat(rimInfo.getStars()));
-        like.setText(rimInfo.getLikes());
-        rimInfo.getImages();
+        price.setText(getString(R.string.price_format, rimInfo.getPrice()));
+        rating.setRating(rimInfo.getStars());
+        likeCount.setText(String.valueOf(rimInfo.getLikes()));
         galleryPager.setAdapter(new GalleryPagerAdapter(this, rimInfo.getImages()));
         pagerIndicatorView.setViewPager(galleryPager);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
@@ -134,6 +137,7 @@ public class DetailsActivity extends BaseActivity implements GalleryPagerAdapter
             } else if (verticalOffset == 0) {
                 collapsed = false;
             }
+            likeCount.setAlpha(1.0f - ((float) Math.abs(verticalOffset)) / ((float) appBarLayout.getTotalScrollRange()));
         });
     }
 
@@ -150,13 +154,13 @@ public class DetailsActivity extends BaseActivity implements GalleryPagerAdapter
     @Click(R.id.like)
     void like() {
         like.setEnabled(false);
-        like.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_favorite_white_24dp), null, null, null);
+        like.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(R.drawable.ic_favorite_white_24dp), null);
 
         RestClient_.likeRim(rimInfo).subscribe(aVoid -> {
         }, throwable -> {
             Toast.makeText(this, "We coudn't like the rim :( (Check your network)", Toast.LENGTH_SHORT).show();
             like.setEnabled(true);
-            like.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_favorite_border_white_24dp), null, null, null);
+            like.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(R.drawable.ic_favorite_border_white_24dp), null);
             throwable.printStackTrace();
         });
     }

@@ -30,13 +30,13 @@ public abstract class AbstractRimInfo {
     String review;
     @Expose
     @SerializedName("stars")
-    String stars;
+    Float stars;
     @Expose
     @SerializedName("price")
-    String price;
+    Integer price;
     @Expose
     @SerializedName("likes")
-    String likes;
+    Integer likes;
     @Expose
     @SerializedName("shipInfo")
     String shipInfo;

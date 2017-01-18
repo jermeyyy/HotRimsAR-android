@@ -31,8 +31,9 @@
             style="?android:attr/ratingBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/half_padding"
             android:isIndicator="true" />
 
         <RelativeLayout
@@ -42,6 +43,7 @@
 
             <ImageView
                 android:id="@+id/image"
+                android:layout_marginTop="@dimen/double_padding"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
@@ -52,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_margin="@dimen/half_padding"
+                android:layout_marginRight="@dimen/half_padding"
                 android:drawableLeft="@drawable/ic_favorite_border_white_24dp"
                 android:drawablePadding="@dimen/half_padding"
                 android:drawableTint="@color/md_red_600"
@@ -78,16 +80,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/half_padding"
-                android:layout_marginRight="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/small_padding"
+                android:layout_marginLeft="@dimen/default_padding"
                 android:drawableLeft="@drawable/color"
                 android:drawablePadding="@dimen/half_padding"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:lines="1"
-                android:padding="@dimen/half_padding"
                 android:textColor="@color/md_grey_700"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 tools:text="Matte Graphite Silver" />
 
             <TextView
@@ -95,17 +96,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/half_padding"
-                android:layout_marginRight="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/small_padding"
+                android:layout_marginLeft="@dimen/default_padding"
                 android:drawableLeft="@drawable/delivery"
                 android:drawablePadding="@dimen/half_padding"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:lines="1"
-                android:padding="@dimen/half_padding"
                 android:textColor="@color/md_grey_700"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 tools:text="Free shipping next day" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/default_padding"
+                android:drawableLeft="@drawable/price"
+                android:drawablePadding="@dimen/half_padding"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:textColor="@color/md_grey_700"
+                android:textSize="15sp"
+                tools:text="299 $ per wheel" />
 
         </LinearLayout>
 
@@ -126,7 +141,7 @@
                 android:text="@string/check_details"
                 android:textAllCaps="true"
                 android:textColor="@color/md_white_1000"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </RelativeLayout>
 

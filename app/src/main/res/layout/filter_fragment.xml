@@ -16,41 +16,55 @@
             android:padding="@dimen/half_padding"
             android:text="@string/filter"
             android:textColor="@color/md_black_1000"
-            android:textSize="18sp" />
+            android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/minPriceLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/half_padding"
-            android:text="Rim size"
+            tools:text="@string/min_price_format"
             android:textColor="@color/md_black_1000" />
 
         <SeekBar
+            android:id="@+id/minPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:max="2000"
+            android:progress="1000"
+            android:padding="@dimen/half_padding" />
+
+        <TextView
+            android:id="@+id/maxPriceLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/half_padding"
+            tools:text="@string/max_price_format"
+            android:textColor="@color/md_black_1000" />
+
+        <SeekBar
+            android:id="@+id/maxPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="2000"
+            android:progress="1000"
             android:padding="@dimen/half_padding" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/half_padding"
-            android:text="Price"
+            android:text="Minimum stars"
             android:textColor="@color/md_black_1000" />
 
-        <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/half_padding" />
-
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Some option 1" />
-
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Some option 1" />
+        <RatingBar
+            android:id="@+id/minRating"
+            style="?android:attr/ratingBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:scaleX="0.75"
+            android:scaleY="0.75" />
 
         <TextView
             android:id="@+id/filter"

@@ -11,4 +11,11 @@
     <string name="browse">Browse rims</string>
     <string name="add_car">Add car</string>
     <string name="check_details">Check details</string>
+    <string name="price_format">$1%d per wheel</string>
+    <string name="max_price_format">Maximum price - %d $</string>
+    <string name="min_price_format">Minimum price - %d $</string>
+    <string name="processing">Processing</string>
+    <string name="no_results">No results</string>
+    <string name="no_results_message">Try different filter conditions.</string>
+    <string name="ok">Ok</string>
 </resources>

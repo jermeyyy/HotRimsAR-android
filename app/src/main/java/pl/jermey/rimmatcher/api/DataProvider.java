@@ -31,6 +31,8 @@ public class DataProvider {
     public static SingleEntityStore<Persistable> query() {
         if (dataStore == null) {
             DatabaseSource source = new DatabaseSource(context, Models.DEFAULT, 1);
+            source.setLoggingEnabled(true);
+            source.setWriteAheadLoggingEnabled(true);
             Configuration configuration = source.getConfiguration();
             dataStore = RxSupport.toReactiveStore(
                     new EntityDataStore<Persistable>(configuration));
