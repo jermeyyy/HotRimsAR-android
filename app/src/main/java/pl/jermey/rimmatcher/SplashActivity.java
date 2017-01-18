@@ -15,6 +15,7 @@ import pl.iterators.mobile.transitionhelper.TransitionHelper;
 import pl.jermey.rimmatcher.api.DataProvider_;
 import pl.jermey.rimmatcher.api.RestClient_;
 import pl.jermey.rimmatcher.base.BaseActivity;
+import pl.jermey.rimmatcher.model.RimInfo;
 
 /**
  * Created by Jermey on 05.12.2016.
@@ -23,7 +24,6 @@ import pl.jermey.rimmatcher.base.BaseActivity;
 public class SplashActivity extends BaseActivity {
 
     private static final String TAG = "SplashActivity";
-    private static final long DB_REFRESH_INTERVAL = 3 * 60 * 60 * 1000; // 3 hours
     @ViewById
     ImageView logo;
     @ViewById
@@ -31,31 +31,25 @@ public class SplashActivity extends BaseActivity {
 
     @AfterViews
     void afterViews() {
-        long currentTimeMillis = System.currentTimeMillis();
-        if (appPrefs.dbUpdateTimestamp().getOr(Long.MAX_VALUE) - currentTimeMillis > DB_REFRESH_INTERVAL || BuildConfig.DEBUG) {
-            updateRims();
-        } else {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        DataProvider_.query().count(RimInfo.class).get().toSingle().subscribe(count -> {
+            if (count > 0) {
+                next();
+            } else {
+                downloadRims();
             }
-            next();
-        }
+        }, Throwable::printStackTrace);
     }
 
-    private void updateRims() {
+    private void downloadRims() {
         RestClient_.getAllRims()
                 .compose(bindToLifecycle())
-                .subscribe(response ->
-                                DataProvider_.query()
-                                        .upsert(response.result)
-                                        .subscribe(rimInfos -> {
-                                            appPrefs.edit().dbUpdateTimestamp().put(System.currentTimeMillis()).apply();
-                                            next();
-                                        }, Throwable::printStackTrace)
+                .map(rimInfoList -> rimInfoList.result)
+                .subscribe(rimInfos -> DataProvider_.query().upsert(rimInfos).subscribe(r -> {
+                            next();
+                        }, Throwable::printStackTrace)
                         , Throwable::printStackTrace);
     }
+
 
     private void next() {
         logo.animate()

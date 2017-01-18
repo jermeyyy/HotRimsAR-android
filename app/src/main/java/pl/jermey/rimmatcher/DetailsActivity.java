@@ -24,7 +24,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -32,7 +31,6 @@ import pl.jermey.rimmatcher.adapter.GalleryPagerAdapter;
 import pl.jermey.rimmatcher.api.DataProvider_;
 import pl.jermey.rimmatcher.api.RestClient_;
 import pl.jermey.rimmatcher.base.BaseActivity;
-import pl.jermey.rimmatcher.model.Image;
 import pl.jermey.rimmatcher.model.RimInfo;
 
 /**
@@ -127,9 +125,8 @@ public class DetailsActivity extends BaseActivity implements GalleryPagerAdapter
         price.setText(rimInfo.getPrice() + "$");
         rating.setRating(Float.parseFloat(rimInfo.getStars()));
         like.setText(rimInfo.getLikes());
-        List<Image> images = new ArrayList<>();
-        images.addAll(rimInfo.getImages());
-        galleryPager.setAdapter(new GalleryPagerAdapter(this, images));
+        rimInfo.getImages();
+        galleryPager.setAdapter(new GalleryPagerAdapter(this, rimInfo.getImages()));
         pagerIndicatorView.setViewPager(galleryPager);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
             if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {

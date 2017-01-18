@@ -42,6 +42,11 @@ public class DataProvider {
         return query().select(RimInfo.class)
                 .get()
                 .toObservable()
+                .map(rimInfo -> {
+                    rimInfo.getImages();
+                    query().update(rimInfo).toBlocking().value();
+                    return rimInfo;
+                })
                 .toList();
     }
 
