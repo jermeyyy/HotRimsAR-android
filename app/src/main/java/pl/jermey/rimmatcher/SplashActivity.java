@@ -15,7 +15,6 @@ import pl.iterators.mobile.transitionhelper.TransitionHelper;
 import pl.jermey.rimmatcher.api.DataProvider_;
 import pl.jermey.rimmatcher.api.RestClient_;
 import pl.jermey.rimmatcher.base.BaseActivity;
-import pl.jermey.rimmatcher.model.RimInfo;
 
 /**
  * Created by Jermey on 05.12.2016.
@@ -24,6 +23,7 @@ import pl.jermey.rimmatcher.model.RimInfo;
 public class SplashActivity extends BaseActivity {
 
     private static final String TAG = "SplashActivity";
+    private static final long SYNC_INTERVAL = 1 * 60 * 60 * 1000; // 1h
     @ViewById
     ImageView logo;
     @ViewById
@@ -31,13 +31,17 @@ public class SplashActivity extends BaseActivity {
 
     @AfterViews
     void afterViews() {
-        DataProvider_.query().count(RimInfo.class).get().toSingle().subscribe(count -> {
-            if (count > 0) {
-                next();
-            } else {
-                downloadRims();
+        long currentTimeMillis = System.currentTimeMillis();
+        if (currentTimeMillis - appPrefs.dbUpdateTimestamp().getOr(0L) > SYNC_INTERVAL) {
+            downloadRims();
+        } else {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        }, Throwable::printStackTrace);
+            next();
+        }
     }
 
     private void downloadRims() {
@@ -45,6 +49,7 @@ public class SplashActivity extends BaseActivity {
                 .compose(bindToLifecycle())
                 .map(rimInfoList -> rimInfoList.result)
                 .subscribe(rimInfos -> DataProvider_.query().upsert(rimInfos).subscribe(r -> {
+                            appPrefs.edit().dbUpdateTimestamp().put(System.currentTimeMillis()).apply();
                             next();
                         }, Throwable::printStackTrace)
                         , Throwable::printStackTrace);

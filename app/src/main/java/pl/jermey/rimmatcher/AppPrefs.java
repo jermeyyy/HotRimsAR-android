@@ -7,5 +7,5 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
  */
 @SharedPref
 public interface AppPrefs {
-
+    public long dbUpdateTimestamp();
 }
